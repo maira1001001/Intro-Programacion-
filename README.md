@@ -1,7 +1,7 @@
 # Introducción a la Programación
 Materia de 1er año de la Universidad Nacional de Quilmes.
 
-Lenguaje de programación: Gobstones [Gobstones](http://www.gobstones.org/)
+Lenguaje de programación: [Gobstones](http://www.gobstones.org/)
 
 Entorno donde se ejecuta 
 * en bloques: [Gobstones JR](https://gobstones.github.io/gobstones-web/#/blocks?course=gobstones/curso-InPr-UNQ)
