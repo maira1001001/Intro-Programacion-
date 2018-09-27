@@ -11,4 +11,6 @@ Website de la cátedra: [Introducción a la Programación](http://inpr.web.unq.e
 
 Libro de Gobstones: [Descargar Libro](http://inpr.web.unq.edu.ar/el-libro-de-gobstones/?dl_id=35)
 
+[Fundamentos](https://mumuki.io/central/chapters/6-fundamentos) de la programación usando Gonstones
+
 
