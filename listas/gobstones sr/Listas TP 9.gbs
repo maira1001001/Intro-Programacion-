@@ -1,0 +1,449 @@
+program {
+    if (esSingular([1,2])) {
+        Poner(Rojo)
+    }
+//   return (resto([])) no se puede
+//   return (primero([])) no se puede
+
+}
+
+function segundo(lista) {
+    /*
+    PROPÓSITO: Denota el segundo elemento de "lista"
+    PRECONDICIÓN: "lista" tiene al menos 1 elemento
+    */
+    return (primero(resto(lista)))
+}
+
+function sinLosDosPrimeros(lista) {
+    /*
+    PROPÓSITO: Denota una lista, excepto sin los 2 primeros elementos de "lista"
+    PRECONDICIÓN: "lista" tiene al menos 2 elementos
+    */
+    return (resto(resto(lista)))
+}
+
+function tercero(lista) {
+    /*
+    PROPÓSITO: Denota el tercer elemento de "lista"
+    PRECONDICIÓN: "lista" tiene al menos 3 elemento
+    */
+    return (primero(sinLosDosPrimeros(lista)))
+}
+
+function sinLosTresPrimeros(lista) {
+    /*
+    PROPÓSITO: Denota una lista, excepto sin los 3 primeros elementos de "lista"
+    PRECONDICIÓN: "lista" tiene al menos 3 elementos
+    */
+    return (resto(resto(resto(lista))))
+}
+
+function cuarto(lista) {
+    /*
+    PROPÓSITO: Denota el cuarto elemento de "lista"
+    PRECONDICIÓN: "lista" tiene al menos 4 elementos
+    */
+    return (primero(sinLosTresPrimeros(lista)))
+}
+
+
+// #1
+
+function coloresCelda() {
+    /*
+        PROPÓSITO:  denota una lista de número de 4 elementos, 
+                    donde cada elemento representa el nro de bolitas 
+                    de cada color en orden alfabético de la celda actual
+        PRECONDICIÓN: Ninguna.
+        OBSERVACIÓN: cada elemento reprenta el nro de bolitas de cada color en orden alfabético de la celda actual
+    */
+    return ([nroBolitas(Azul), nroBolitas(Negro), nroBolitas(Rojo), nroBolitas(Verde)])
+}
+
+
+// #2
+
+function coloresVariasCeldas1() {
+    /*
+    PROPÓSITO:  denota una lista de número de 4 elementos
+                , donde cada número representa el nro de bolitas de cada color en orden alfabético
+                hacia el Este (un elemento por celda)
+    PRECONDICIÓN: Hay al menos 3 celdas al Este de la celda actual
+    OBSERVACIÓN: cada elemento representa un nro de bolitas de un color
+    */
+    listaDeColores := [nroBolitas(Azul)]
+    Mover(Este)
+    listaDeColores := listaDeColores ++ [nroBolitas(Negro)]
+    Mover(Este)
+    listaDeColores := listaDeColores ++ [nroBolitas(Rojo)]
+    Mover(Este)
+    listaDeColores := listaDeColores ++ [nroBolitas(Verde)]
+    
+    return (listaDeColores)
+}
+
+// No conviene: hace 2 recorridos: 1ro sobre colores, el 2do sobre las celdas
+function coloresVariasCeldas2() {
+     /*
+    PROPÓSITO:  denota una lista de número de 4 elementos
+                , donde cada número representa el nro de bolitas de cada color en orden alfabético
+                hacia el Este (un elemento por celda)
+    PRECONDICIÓN: Hay al menos 3 celdas al Este de la celda actual
+    OBSERVACIÓN: cada elemento representa un nro de bolitas de un color
+    */
+    colorActual := minColor()
+    listaDeColores := []
+    while (colorActual /= maxColor()) {
+        listaDeColores := listaDeColores ++ [nroBolitas(colorActual)]
+        colorActual := siguiente(colorActual)
+        Mover(Este)
+    }
+    return (listaDeColores ++ [nroBolitas(maxColor())])
+}
+
+function coloresVariasCeldas3() {
+     /*
+    PROPÓSITO:  denota una lista de número de 4 elementos
+                , donde cada número representa el nro de bolitas de cada color en orden alfabético
+                hacia el Este (un elemento por celda)
+    PRECONDICIÓN: Hay al menos 3 celdas al Este de la celda actual
+    OBSERVACIÓN: cada elemento representa un nro de bolitas de un color
+    */
+    listaDeColores := []
+    colorActual:= minColor()
+    repeat(3) {
+        listaDeColores := listaDeColores ++ [nroBolitas(colorActual)]
+        colorActual := siguiente(colorActual)
+        Mover(Este)
+    }
+    return (listaDeColores ++ [nroBolitas(colorActual)])
+}
+
+
+// #3.
+function cantidadDeAzulesEn_(listaDeNúmeros) {
+    /*
+    PROPÓSITO: Denota el número de bolitas azules de la lista "listaDeNúmeros" 
+    PRECONDICIÓN: La lista contiene 4 elementos
+    */
+   return (primero(listaDeNúmeros))
+}
+
+// #4.
+function hayMismaCantidad(listaDeNúmeros) {
+    /*
+    PROPÓSITO: Denota verdadero si hay la misma cantidad de bolitas en "listaDeNúmeros" y en la celda actual.
+    PRECONDICIÓN: "listaDeNúmeros" tiene 4 elementos.
+    */
+    return (primero(listaDeNúmeros) == nroBolitas(Azul)
+         && segundo(listaDeNúmeros) == nroBolitas(Negro) 
+         && tercero(listaDeNúmeros) == nroBolitas(Rojo)
+         && cuarto(listaDeNúmeros) == nroBolitas(Verde))
+}
+
+//#5
+function hayDistintaCantidad(listaDeNúmeros) {
+    /*
+    PROPÓSITO: Denota verdadero si todas las bolitas de la celda actual son distintas de "listaDeNúmeros"
+    PRECONDICIÓN: "listaDeNúmeros" tiene 4 elementos y cada elemeto es de tipo Numérico 
+    */
+    return (not hayAlgunaCantidadIgual(listaDeNúmeros))    
+}
+
+// #6
+function hayAlgunaCantidadIgual(listaDeNúmeros) {
+    /*
+    PROPÓSITO: Denota verdadero si alguna cantidad de bolitas de la celda actual es igual a "listaDeNúmero"
+    PRECONDICIÓN: "listaDeNúmeros" tiene 4 elementos y cada elemento es un número
+    */
+    return (primero(listaDeNúmeros) == nroBolitas(Azul)
+         || segundo(listaDeNúmeros) == nroBolitas(Negro) 
+         || tercero(listaDeNúmeros) == nroBolitas(Rojo)
+         || cuarto(listaDeNúmeros)  == nroBolitas(Verde))
+}
+
+// #7
+function direccionesAlBorde() {
+    /*
+    PROPÓSITO: Denota una lista, donde cada elemento representa la dirección hacia donde el cabeza puede moverse
+    PRECONDICIÓN: Ninguna
+    */
+    listaDeDirecciones := []
+    direcciónActual := minDir()
+    while (direcciónActual /= maxDir()) {
+        listaDeDirecciones := listaDeDirecciones ++ direcciónSiNoPuedeMoverHacia_(direcciónActual)
+        direcciónActual := siguiente(direcciónActual)
+    }
+    return (listaDeDirecciones ++ direcciónSiNoPuedeMoverHacia_(direcciónActual))
+}
+
+function direcciónSiNoPuedeMoverHacia_(direccion){ 
+    /* 
+    PROPÓSITO: Denota una lista de un elemento que representa la dirección hacia donde se puede mover el cabezal
+    PRECONDICIÓN:
+    */
+    return (choose  [direccion] when (puedeMover(direccion)) [] otherwise) 
+}
+
+function dirreccionesAlBorde2() {
+    /*
+    PROPÓSITO: Denota una lista, donde cada elemento representa la dirección hacia donde el cabeza puede moverse
+    PRECONDICIÓN: Ninguna
+    */
+    listaDeDirecciones := []
+    direcciónActual := minDir()
+    while (direcciónActual /= maxDir()) {
+        if (puedeMover(direcciónActual)) {
+            listaDeDirecciones := listaDeDirecciones ++ [direcciónActual]
+        }
+        direcciónActual := siguiente(direcciónActual)
+    }
+    if (puedeMover(direcciónActual)) {
+            listaDeDirecciones := listaDeDirecciones ++ [direcciónActual]
+    }
+    return (listaDeDirecciones)
+}
+
+function dirreccionesAlBorde3() {
+    /*
+    PROPÓSITO: Denota una lista, donde cada elemento representa la dirección hacia donde puede moverse el cabezal.
+    PRECONDICIÓN: Ninguna.
+    */
+    listaDeDirecciones := []
+    if (puedeMover(Norte)) {
+        listaDeDirecciones := listaDeDirecciones ++ [Norte]
+    }
+    if (puedeMover(Este)) {
+        listaDeDirecciones := listaDeDirecciones ++ [Este]
+    }
+    if (puedeMover(Sur)) {
+        listaDeDirecciones := listaDeDirecciones ++ [Sur]
+    }
+    if (puedeMover(Oeste)) {
+        listaDeDirecciones := listaDeDirecciones ++ [Oeste]
+    }
+    return (listaDeDirecciones)
+}
+
+function esSingular(lista) {
+    /*
+    PROPÓSITO: Denota verdadero si la lista "lista" contiene 1 solo elemento
+    PRECONDICIÓN: "lista" no es vacía.
+    PARÁMETRO: "lista" es de tipo Lista
+    */
+    return (esVacía(resto(lista)))
+}
+
+type Carta is record {
+    //Se modela un mazo de cartas españolas
+    field palo //Palo
+    field número //Número
+}
+
+type Palo is variant {
+    //modela un palo del mazo de cartas españolas
+    case Oro    {}
+    case Espada {}
+    case Copa   {}
+    case Basto  {}
+}
+
+// #18.
+function esFigura(carta) {
+    /*
+    PROPÓSITO: Denota verdadero si la figura de la carta "carta" es un Rey, un Caballero o un paje Medieval
+    PRECONDICIÓN: "carta" no es vacío
+    PARÁMETRO: "carta" es un registro de tipo Carta
+    */
+      return (número(carta)==10 || número(carta)==11 || número(carta)==12)  
+}
+
+// #19.
+function luegoDeRobarCarta(cartasEnMano, mazo) {
+    /*
+    PROPÓSITO: Describe una lista con las "cartasEnMano" del jugador más una carta robada del "mazo" 
+    PRECONDICIÓN: "cartasEnMano" y "mazo" no son vacías.
+    PARAMETROS:
+        * "cartasEnMano": es de tipo Lista de Cartas
+        * "mano": es de tipo Lista de Cartas
+    RESULTADO: una lista de tipo Lista de Cartas
+    */
+    return (cartasEnMano++[primero(mazo)])
+}
+
+// #20.
+function luegoDeJugarCarta(cartasEnMano) {
+    /*
+    PROPÓSITO: Describe una lista de las cartas en mano del jugador luego de jugar su primer carta 
+    PRECONDICIÓN: "cartasEnMano" tiene al menos 1 elemento
+    PARÁMETRO: "cartasEnMano" es de tipo Lista de Cartas
+    RESULTADO: una lista de tipo Lista de Cartas
+    */
+    return (resto(cartasEnMano))
+}
+
+// #21.
+function luegoDeJugarSegundaCarta(cartasEnMano) {
+    primeraCarta := primero(cartasEnMano)
+    return ([primeraCarta]++sinLosDosPrimeros(cartasEnMano))
+}
+
+
+// #22.
+function primerasTresCartas(mazo) {
+/*
+    PROPÓSITO: Describe las 3 primeras cartas del mazo
+    PRECONDICIÓN: "mazo" tiene al menos 3 elementos
+    PARÁMETRO: "mazo" es de tipo Lista de Cartas
+    RESULTADO: una lista de tipo Lista de Cartas de 3 elementos.
+*/
+    return ([primero(mazo)]++[segundo(mazo)]++[tercero(mazo)])
+}
+
+// #23.
+function tengoJugadaEnTira(tira,misCartas) {
+/*
+    PROPÓSITO: Denota verdadero si la primer carta de "misCarta" puede ser jugada en la "tira"
+    PRECONDICIÓN: "tira" y "misCartas" no son vacías.
+    PARÁMETROS:  "tira" y "misCartas" son de tipo Lista de Cartas
+*/
+    return  (número(primero(misCartas)) < número(primero(misCartas)) 
+            && palo(primero(misCartas)) /= palo(primero(tira)))
+}
+
+// #25.
+function descubrirLaCarta(mazo) {
+/*
+    PROPÓSITO:
+    PRECONDICIÓN:
+    PARÁMETRO: 
+*/
+return ([])
+}
+
+
+// #26.
+function tieneEnvido(cartasEnMano) {
+/*
+    PROPÓSITO: Denota verdadero si el jugador tiene envido con las "cartasEnMano"
+    PRECONDICIÓN: "cartasEnMano" tiene 3 cartas
+    PARÁMETRO:  "cartasEnMano" es de tipo Lista de Cartas
+*/
+    return (palo(primero(cartasEnMano)) == palo(segundo(cartasEnMano))
+        || palo(segundo(cartasEnMano)) == palo(tercero(cartasEnMano))
+        || palo(tercero(cartasEnMano)) == palo(primero(cartasEnMano)))
+}
+
+// #27.
+function tieneFlor(cartasEnMano) {
+/*
+    PROPÓSITO: Denota verdadero si el jugador tiene flor con las "cartasEnMano"
+    PRECONDICIÓN: "cartasEnMano" tiene 3 cartas
+    PARÁMETRO:  "cartasEnMano" es de tipo Lista de Cartas
+*/
+    return (palo(primero(cartasEnMano)) == palo(segundo(cartasEnMano))
+        &&  palo(segundo(cartasEnMano)) == palo(tercero(cartasEnMano)))
+}
+
+function cuantoDeFlor(cartasEnMano) {
+/*
+    PROPÓSITO: Denota los puntos de una jugada con Flor para las cartas "cartasEnMano"
+    PRECONDICIÓN: "cartasEnMano" tiene 3 cartas del mismo palo
+    PARÁMETRO:  "cartasEnMano" es de tipo Lista de Cartas
+*/
+    return (valorDeLaCartaParaEnvidoOFlor(primero(cartasEnMano))
+          + valorDeLaCartaParaEnvidoOFlor(segundo(cartasEnMano))
+          + valorDeLaCartaParaEnvidoOFlor(tercero(cartasEnMano)))
+}
+
+function valorDeLaCartaParaEnvidoOFlor(carta) {
+/*
+    PROPÓSITO: Denota el valor de la carta según la figura que corresponde para un envido  o una flor
+    PRECONDICIÓN: "carta" no es vacío
+    PARÁMETRO: "carta" es un registro de tipo Carta
+*/
+    return (matching (número(carta)) select
+                0 on 10
+                0 on 11
+                0 on 12
+                número(carta) otherwise)
+}
+
+function cuantoDeEnvido(cartasEnMano) {
+ /*
+    PROPÓSITO: Denota los puntos de una jugada con Envido para las cartas "cartasEnMano"
+    PRECONDICIÓN: "cartasEnMano" tiene al menos 2 cartas del mismo palo
+    PARÁMETRO:  "cartasEnMano" es de tipo Lista de Cartas
+*/ 
+    return (choose  puntosDeEnvidoPara_(listaConDosCartasDeIgualPalo(cartasEnMano)) when (not tieneFlor(cartasEnMano))
+                    puntosDeEnvidoPara_(listaConDosCartasConMáximoPuntajeParaEnvido(cartasEnMano)) otherwise)
+}
+
+function puntosDeEnvidoPara_(listaDe2CartasDeIgualPalo) {
+    /*
+    PROPÓSITO: Denota un número que representa los puntos del envido para las dos cartas "listaDe2CartasDeIgualPalo"
+    PRECONDICIÓN: "listaDe2Cartas" tiene 2 cartas del mismo palo
+    PARÁMETRO:  "listaDe2Cartas" es de tipo Lista de Cartas con 2 elementos
+    */
+    return (valorDeLaCartaParaEnvidoOFlor(primero(listaDe2CartasDeIgualPalo))
+          + valorDeLaCartaParaEnvidoOFlor(segundo(listaDe2CartasDeIgualPalo)))
+}
+
+function listaConDosCartasDeIgualPalo(cartasEnMano) {
+/*
+    PROPÓSITO: Denota una lista con 2 cartas del mismo palo
+    PRECONDICIÓN: "cartasEnMano" tiene 3 elementos y no es una jugada con Flor
+    PARÁMETRO: "cartasEnMano" es de tipo Lista de Cartas con 3 cartas
+*/
+    return (choose [palo(primero(cartasEnMano)), palo(segundo(cartasEnMano))] when (palo(primero(cartasEnMano))==palo(primero(cartasEnMano)))
+                   [palo(primero(cartasEnMano)), palo(tercero(cartasEnMano))] when (palo(primero(cartasEnMano))==palo(segundo(cartasEnMano)))
+                   [palo(segundo(cartasEnMano)), palo(tercero(cartasEnMano))] otherwise)
+}
+
+function listaConDosCartasConMáximoPuntajeParaEnvido(cartasEnMano) {
+/*
+    PROPÓSITO: Denota una lista con 2 cartas que representan el puntaje máximo para Envido de una jugada con 3 cartas del mismo palo.
+    PRECONDICIÓN: "cartasEnMano" tiene 3 cartas del mismo  palo
+    PARAMETRO: "cartasEnMano" es un registro de tipo Carta
+    RESULTADO: una lista de tipo Lista de Cartas con 3 cartas
+*/
+    puntosEnvido1 := número(primero(cartasEnMano))
+    puntosEnvido2 := número(segundo(cartasEnMano))
+    puntosEnvido3 := número(tercero(cartasEnMano))
+    return (0)
+}
+
+
+/* ------------------- BOLETO DE COLECTIVO ---------------- */
+type BoletoDeColectivo is record {
+/*
+    PROPÓSITO: Modela un boleto del colectivo
+    INV. REP.:  
+        * "nroDeLínea"  >= 0
+        * "tramo" entre 1 y 4
+        * "serie" no es vacía
+        * "nroBoleto" tiene 5 dígitos
+*/
+    field nroDeLínea    //Número
+    field tramo         //Número
+    field serie         //String
+    field nroBoleto     //Número
+}
+
+function esCapicúa(boleto) {
+/*
+    PROPÓSITO: Denota verdadero si el campo "nroBoleto" de "boleto" es capicúa
+    PRECONDICIÓN: "boleto" no es vecío
+    PARÁMETRO: "boleto" es un registro de tipo BoletoDeColectivo
+*/
+    últimoDígitoDeNroBoleto := 0
+    nroBoletoSinÚltimoDigito := nroBoleto(boleto)
+    listaDeDigitos := []
+    repeat(4) {
+        últimoDígitoDeNroBoleto  := nroBoleto(boleto) mod 10
+        nroBoletoSinÚltimoDigito := nroBoletoSinÚltimoDigito div 10
+        listaDeDígitos := listaDeDígitos ++ últimoDígitoDeNroBoleto
+    }
+    //falta ver si la lista es capicua
+}

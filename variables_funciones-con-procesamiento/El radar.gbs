@@ -1,0 +1,87 @@
+program { 
+    SimularUnRadar()
+}
+
+procedure SimularUnRadar() {
+/*
+*  PROPÓSITO: Simula un radar (busca objetos en cada uno de los 4 cuadrantes del tablero e informa si encontró alguno)
+*  PRECONDICION: Hay un escenario correctamente representado
+*   * Hay un radar en el centro del escenario
+*   * Hay cuatro cuadrantes
+*/
+
+  if (hayEnCuadrante(Rojo, Norte, Oeste)) {
+    Poner(Azul)
+  }
+  if (hayEnCuadrante(Rojo, Norte, Este)) {
+    Poner(Negro)
+  }
+  if (hayEnCuadrante(Rojo, Sur, Este)) {
+    Poner(Verde)
+  }
+  if (hayEnCuadrante(Rojo, Sur, Oeste)) {
+    Poner(Rojo)
+  }
+}
+
+function distanciaAlBorde(direcciónAMedir) {
+  distancia := 0
+  while (not (not(puedeMover(direcciónAMedir)))) {
+    Mover(direcciónAMedir)
+    distancia := distancia + 1
+  }
+  return (distancia)
+}
+
+function hayEnCuadrante(color, dirección1, dirección2) {
+/*
+*  PROPÓSITO: Indica si hay un objeto de color en el cuadrante determinado por las direcciones dirección1 y dirección2
+*  PRECONDICION: dirección1 y dirección2 no deben ser iguales ni opuestas
+*  PARÁMETROS:
+*   * dirección1 y dirección2: las direcciones hacia donde debe moverse para buscar el objeto
+*/
+  BuscarEnCuadrante(color, dirección1, dirección2)
+  return (hayBolitas(Rojo))
+}
+
+procedure IrALaSiguienteCelda(ancho, direcciónPrincipal, direcciónSecundaria) {
+  if (puedeMover(direcciónPrincipal)) {
+    Mover(direcciónPrincipal)
+  } else {
+    Mover__Veces(opuesto(direcciónPrincipal), ancho)
+    Mover(direcciónSecundaria)
+  }
+}
+
+procedure BuscarEnCuadrante(colorABuscar, direcciónHorizontal, direcciónVertical) {
+/*
+* PROPÓSITO: Busca un objeto objetoABuscar en el cuadrante determinado por las direcciones direcciónPrincipal y direcciónSecundaria
+* PRECONDICIÓN: 
+* PARÁMETROS:
+*   * colorABuscar: un color que representa el objeto a buscar
+*   * direcciónPrincipal: una dirección que determina uno de los ejes del cuadrante
+*   * direcciónSecundaria: una dirección que determina uno de los ejes del cuadrante
+*  OBSERVACIÓN: Se arma un recorrido sobre las celdas del cuadrante, hacia direcciónPrincipal y direcciónSecundaria
+*/
+  anchoDelCuadrante := distanciaAlBorde(direcciónHorizontal)
+  while (not (encontróObjeto(colorABuscar) || esLaÚltimaCelda(direcciónHorizontal, direcciónVertical))) {
+    IrALaSiguienteCelda(anchoDelCuadrante, direcciónHorizontal, direcciónVertical)
+  }
+}
+
+function encontróObjeto(colorDelObjeto) {
+/*
+*  PROPÓSITO: Indica si hay un objeto en la celda actual
+*  PRECONDICION: Ninguna (operación total)
+*  PARÁMETROS:
+*   * dirección1 y dirección2: las direcciones hacia donde debe moverse para buscar el objeto
+*  OBSERVACIÓN: el objeto se representa con al menos 1 bolita de color Rojo
+*/ 
+  return (hayBolitas(colorDelObjeto))
+}
+
+function esLaÚltimaCelda(dirección1, dirección2) {
+  return (not(puedeMover(dirección1)) && not(puedeMover(dirección2)))
+}
+
+

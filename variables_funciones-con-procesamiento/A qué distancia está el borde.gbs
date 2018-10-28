@@ -1,0 +1,51 @@
+program { 
+    InformarDistanciaAlBorde()     
+}
+
+procedure InformarDistanciaAlBorde() {
+/*
+*   PROPÓSITO:  Informa en la celda actual, la distancia a cada uno de los 4 bordes.
+*   PRECONDICIÓN: Ninguna.
+*/
+  Poner__Veces(Azul,  distanciaHastaElBorde(Norte))
+  Poner__Veces(Negro, distanciaHastaElBorde(Este))
+  Poner__Veces(Rojo, distanciaHastaElBorde(Oeste))
+  Poner__Veces(Verde, distanciaHastaElBorde(Sur))
+}
+
+function distanciaHastaElBorde(direcciónAMedir) {
+/*
+*   PROPÓSITO:  Calcula la distancia al borde especificado en direcciónAMedir
+*   PRECONDICIÓN: Ninguna
+*   PARÁMETRO: 
+*       * direcciónAMedir: una dirección que indica la dirección hacia donde calculo la distancia al borde
+*/
+  distanciaAlBorde := 0
+  while (not (esLaÚltimaCelda(direcciónAMedir))) {
+      distanciaAlBorde := distanciaAlBorde + 1
+      Mover(direcciónAMedir)
+  }
+  return (distanciaAlBorde)
+}
+
+procedure PasarALaSiguienteCelda(direcciónAMover) { 
+/*
+*   PROPÓSITO:  Pone el cabezal en la siguiente celda en dirección direcciónAMedir
+*   PRECONDICIÓN: Ninguna. 
+*   PARÁMETRO: 
+*       * direcciónAMedir: una dirección que indica la dirección hacia donde calculo la distancia al borde
+*/
+    if (puedeMover(direcciónAMover)) { 
+        Mover(direcciónAMover)
+    }
+}
+
+function esLaÚltimaCelda(dirección) { 
+/*
+*   PROPÓSITO:  Indica si se puede mover en la dirección especificada por parámetro
+*   PRECONDICIÓN: Ninguna. 
+*   PARÁMETRO: 
+*       * dirección: una dirección que indica si se puede mover hacia esa dirección
+*/
+    return (not(puedeMover(dirección))) 
+}

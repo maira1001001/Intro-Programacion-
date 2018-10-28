@@ -1,0 +1,89 @@
+program { 
+    InformarLaCantidadDeRajadas() 
+}
+
+procedure InformarLaCantidadDeRajadas() {
+/*
+*  PROPÓSITO: Informa la cantidad de baldosas rajadas que hay en el patio
+*  PRECONDICIÓN: Hay un escenario correctamente representado 
+*       * Hay un patio de tamaño nxn con cantidad de baldosas nxn
+*/
+  IrALaEsquinaSuroeste()
+  Poner__Veces(Negro, cantidadDeBaldosasRajadas())
+}
+
+function cantidadDeBaldosasRajadas() {
+/*
+*  PROPÓSITO: Cuenta las baldosas rajadas del patio
+*  PRECONDICIÓN: Ninguna.
+*/
+  ComenzarElRecorrido()
+  cantidadDeBaldosasRajadasYaVistas := 0
+  while (not (esLaÚltimaBaldosa())) {
+    cantidadDeBaldosasRajadasYaVistas := cantidadDeBaldosasRajadasYaVistas + contarBaldosaRajadaSiCorresponde()
+    PasarALaSiguienteBaldosa()
+  }
+  cantidadDeBaldosasRajadasYaVistas := cantidadDeBaldosasRajadasYaVistas + contarBaldosaRajadaSiCorresponde()
+  return (cantidadDeBaldosasRajadasYaVistas)
+}
+ 
+function contarBaldosaRajadaSiCorresponde() {
+    baldosaRajada := 0
+    if (esBaldosaRajada()) { baldosaRajada := 1 }
+    return (baldosaRajada)
+}
+
+procedure ComenzarElRecorrido() { 
+/*
+*  PROPÓSITO: Comienza el recorrido dejando el cabezal en la esquina SO
+*  PRECONDICIÓN: Ninguna
+*/
+    IrALaEsquinaSuroeste() 
+}
+
+function esLaÚltimaBaldosa() { 
+/*
+*  PROPÓSITO: Indica si el cabezal está en la última baldosa
+*  PRECONDICIÓN: Ninguna
+*  OBSERVACIÓN: Una baldosa es una celda
+*/
+    return (not(puedeMover(Este)) && not(puedeMover(Norte))) 
+}
+
+procedure PasarALaSiguienteBaldosa() {
+/*
+*  PROPÓSITO:  Se mueve a la siguiente baldosa dejando el cabezal alguna de las siguientes posiciones respecto de la actual:
+*   * la celda lindante al Este
+*   * una celda al Norte, en el borde Oeste
+*  PRECONDICIÓN: Hay al menos una fila al Norte (puede estar representada por 1 o n celdas)
+*  OBSERVACIÓN: 
+*   * Una baldosa es una celda
+*   * Se arma un recorrido simple por fila con dirección NE
+*/   
+    if(puedeMover(Este)) {
+        Mover(Este)
+    }
+    else {
+        Mover(Norte)
+        IrAlBorde(Oeste)
+    }
+}
+
+procedure IrALaEsquinaSuroeste() {
+/*
+*  PROPÓSITO: Ubica el cabezal en la esquina SO
+*  PRECONDICIÓN: Ninguna
+*/ 
+  IrAlBorde(Oeste)
+  IrAlBorde(Sur)
+}
+
+function esBaldosaRajada() { 
+/*
+*  PROPÓSITO: Ubica el cabezal en la esquina SO
+*  PRECONDICIÓN: Ninguna (es una operación total)
+*/ 
+    return (hayBolitas(Verde)) 
+}
+
+

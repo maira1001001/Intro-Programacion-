@@ -1,0 +1,15 @@
+program { 
+    ImitarAzulesConRojasPeroEnElEste() 
+}
+
+procedure ImitarAzulesConRojasPeroEnElEste() {
+    /*
+    *PROPOSITO: Imita la cantidad de bolitas azules con bolitas rojas, en la celda lindante al Este 
+    *PRECONDICION: Hay una celda al Este. (Poner__Veces es una operación total) 
+    */
+  cantidadDeAzulesAImitar := nroBolitas(Azul)
+  Mover(Este)
+  Poner__Veces(Rojo, cantidadDeAzulesAImitar)
+  Poner__Veces(Negro, 0)
+  
+}

@@ -1,0 +1,64 @@
+program { 
+    EncenderLaFilaDeLucesYContarlas()
+}
+
+procedure EncenderLaFilaDeLucesYContarlas(){
+    /*
+    * PROPÓSITO: Lucho prende las luces de la fila, las cuenta e informa la cantidad prendida
+    * PRECONDICIÓN: Hay un escenario correctamente representado {
+        * Hay un Lucho ubicado al inicio, donde se encuentra el cabezal
+        * Hay una fila de luces apagadas
+        * Hay una meta donde llega lucho
+    }
+    * OBSERVACIÓN: recorrido por fila donde cada elemento a procesar es una celda
+    */
+    cantidadDeLucesQueYaPrendí := 0
+    while (not (estáEnLaMeta())) {
+        EncenderLuz()
+        cantidadDeLucesQueYaPrendí := cantidadDeLucesQueYaPrendí + 1
+        MoverALucho(Este)
+    }
+    InformarLucesPrendidas(cantidadDeLucesQueYaPrendí)
+}
+
+procedure EncenderLuz() {
+/*
+* PROPÓSITO: Prende la luz
+* PRECONDICIÓN: Ninguna (operación total)
+* OBSERVACIÓN: La Luz se representa con una bolita Azul
+*/
+    Poner(Azul)
+}
+
+procedure MoverALucho(direccionAMover) {
+/*
+* PROPÓSITO: Mueve a Lucho hacia la dirección especificada
+* PARÁMETRO: 
+*    * direccionAMover: una dirección que indica hacia donde se mueve Lucho
+* PRECONDICIÓN: Hay un Lucho y puede mover hacia la direccionAMover
+* OBSERVACIÓN: Lucho se representa con una bolita Negra
+*/
+    Sacar(Negro)
+    Mover(direccionAMover)
+    Poner(Negro)
+}
+
+procedure InformarLucesPrendidas(cantidadDeLucesAInformar) {
+/*
+* PROPÓSITO: Informa la cantidad de luces prendidas
+* PRECODICIÓN: Ninguna (Poner__Veces es una operación total)
+* PARÁMETRO: 
+*    * cantidadDeLucesAInformar: un número que indice la cantidad de luces que debe informar
+* OBSERVACIÓN: La anotación se representa con bolitas Rojas
+*/
+    Poner__Veces(Rojo, cantidadDeLucesAInformar)
+}
+
+function estáEnLaMeta() {
+/*
+* PROPÓSITO: Indica si llegó a la meta
+* PRECONDICIÓN: Ninguna (nroBolitas es una operación total)
+* OBSERVACIÓN: la meta se representa con 2 bolitas Verdes
+*/
+    return (nroBolitas(Verde)==2)
+}
