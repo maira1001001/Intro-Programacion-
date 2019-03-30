@@ -1,0 +1,11 @@
+<xml xmlns="http://www.w3.org/1999/xhtml"><variables></variables><block type="Program" id="sah?W8uHl^-|KV#J_g2i" deletable="false" x="34" y="145"><mutation timestamp="1553915273533"></mutation><statement name="program"><block type="procedures_callnoreturnnoparams" id="KlxQW`K7A1[SoJp4+4||"><mutation name="Llevar al Beto al final del pasillo"></mutation></block></statement></block><block type="procedures_defnoreturnnoparams" id="y9F]S8hZUD28^3^~GNNR" x="340" y="135"><field name="NAME">Llevar al Beto al final del pasillo</field><comment pinned="true" h="86.06597900390625" w="358.96466064453125">PROPÓSITO: Lleva a Beto al final del pasillo
+
+PRECONDICIÓN:
+. Hay un Beto ubicado en la fila 2 y columna 10
+. Hay un pasillo representado adecuandamente por donde el Beto camina:
+   P P P P P P P P P P P P
+   P C C C C C C C C C B P
+   P P P P P P P P P P P P
+(P: PARED, C: CORREDOR, B:BETO)
+. Hay una pared al rededor del pasillo
+. Hay explosiones en la pared</comment><statement name="STACK"><block type="procedures_callnoreturnnoparams" id="*Moqyi{UHxt3{aX}76=["><mutation name="Bajar hacia  el final del pasillo"></mutation><next><block type="procedures_callnoreturnnoparams" id="mid9pd0W#]:ABS7nm9Vw"><mutation name="Caminar en linea recta hasta el final"></mutation></block></next></block></statement></block><block type="procedures_defnoreturnnoparams" id="hb)cmzZ`7Buzbv;t)BiP" x="700" y="132"><field name="NAME">Caminar en linea recta hasta el final</field><statement name="STACK"><block type="RepeticionSimple" id="7-vt]~:[5HfSzU_oasCO"><value name="count"><block type="math_number" id="m-rb#bzsXOCv9~kXUlca"><field name="NUM">9</field></block></value><statement name="block"><block type="MoverAlBetoAl_" id="-*od7mPKst0Q71Lzgxa}"><value name="arg1"><block type="DireccionSelector" id="ST[O[)19#*~rMaMAtLYr"><field name="DireccionDropdown">Oeste</field></block></value></block></statement></block></statement></block><block type="procedures_defnoreturnnoparams" id="-$%fC8LxI{#d=%3Y4O2k" x="710" y="298"><field name="NAME">Bajar hacia  el final del pasillo</field><statement name="STACK"><block type="MoverAlBetoAl_" id="pKAWrrr#;=Zp%3p^Wz7i"><value name="arg1"><block type="DireccionSelector" id="Y^torwV+`EYA%ln+Js;G"><field name="DireccionDropdown">Sur</field></block></value></block></statement></block></xml>

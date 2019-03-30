@@ -1,0 +1,191 @@
+/*
+DISCUCIONES:
+1. hasta donde regresa el cabezal para "DibujarBase", "DibujarMedio", "DibujarPunta
+2. Conviene dejar el cabezal en la punta de la pirámide o en el extremo inicial de la base ?
+3. DibujarPirámideGigante queda muy feo para modularizar. Que hacemos con ese?
+*/
+program {
+    DibujarPirámide()
+    DibujarPirámideInvertida()
+    DibujarPirámideEstiradaALoAlto()
+    DibujarPirámideGigante()
+}
+
+
+/*
+    PROPÓSITO: 
+        * Dibuja un pirámide negra de 5 de largo por 3 de alto
+        * El cabezal queda ubicado en la punta de la pirámide
+    PRECONDICIÓN: 
+        * Hay al menos 2 celdas al Norte y 4 al Este
+        * Las celdas donde se dibujará están vacías
+*/
+procedure DibujarPirámide() {
+    DibujarBase()
+    PosicionarseParaSiguienteSegmentoAlNorte()
+    DibujarMedio()
+    PosicionarseParaSiguienteSegmentoAlNorte()
+    DibujarPunta()
+}
+
+/*
+    PROPÓSITO: 
+        * Dibuja un pirámide negra de 5 de largo por 3 de alto
+        * El cabezal queda ubicado en la punta de la pirámide
+    PRECONDICIÓN: 
+        * Hay al menos 2 celdas al Norte y 4 al Este
+        * Las celdas donde se dibujará están vacías
+*/
+procedure DibujarPirámideInvertida() {
+    DibujarBase()
+    PosicionarseParaSiguienteSegmentoAlSur()
+    DibujarMedio()
+    PosicionarseParaSiguienteSegmentoAlSur()
+    DibujarPunta()
+}
+
+/*
+    PROPÓSITO: 
+        * Dibuja un pirámide negra de 5 de largo por 6 de alto
+        * El cabezal queda ubicado en la punta de la pirámide
+    PRECONDICIÓN: 
+        * Hay al menos 4 celdas vacías al Norte y 5 celdas vacías al Este de la actual
+        * La celda actual está vacía
+*/
+procedure DibujarPirámideEstiradaALoAlto() {
+    DibujarBaseDoble()
+    PosicionarseParaSiguienteSegmentoAlNorte()
+    DibujarMedioDoble()
+    PosicionarseParaSiguienteSegmentoAlNorte()
+    DibujarPuntaDoble()
+}
+
+/*
+    PROPÓSITO: 
+        * Dibuja un pirámide negra de 11 de largo por 6 de alto
+        * El cabezal queda ubicado en la punta de la pirámide
+    PRECONDICIÓN: 
+        * Hay al menos 10 celdas vacías al Norte y 5 celdas vacías al Este de la actual
+        * La celda actual está vacía
+*/
+procedure DibujarPirámideGigante() {
+    DibujarPirámide()
+    Mover(Este)
+    DibujarPirámideInvertida()
+    Mover(Este)
+    DibujarPirámide()
+    repeat (5) { Mover(Oeste) } Mover(Norte)
+    DibujarPirámide()
+}
+
+/* ​ 
+    PROPÓSITO: Dibuja una base de pirámide de 5 bloques de lado
+    PRECONDICIONES:
+    * La celda actual debe estar vacía
+    * Debe haber cuatro celdas vacías al Este del cabezal
+*/
+procedure DibujarBase(){
+    repeat (4) {
+        Poner(Negro)
+        Mover(Este)
+    }
+    Poner(Negro)
+    repeat (4) { Mover(Oeste) }
+}
+
+/*
+ PROPÓSITO: 
+    * Dibuja una base doble de pirámide de 5 bloques de lado y 2 de alto
+    * Deja el cabezal una celda lindante al Norte de la celda actual
+    PRECONDICIONES:
+    * La celda actual debe estar vacía
+    * Debe haber 4 celdas vacías al Este y 1 al Norte de la celda actual
+*/
+procedure DibujarBaseDoble() {
+    DibujarBase()
+    Mover(Norte)
+    DibujarBase()
+}
+
+
+/* ​ 
+PROPÓSITO: Dibuja un sector del medio de pirámide de 3 celdas de lado
+PRECONDICIONES:
+    * La celda actual debe estar vacía
+    * Debe haber dos celdas vacías al Este del cabezal
+*/
+procedure DibujarMedio() {
+    repeat (2) {
+        Poner(Negro)
+        Mover(Este)
+    }
+    Poner(Negro)
+    repeat (2) { Mover(Oeste) }
+}
+
+/*
+ PROPÓSITO: 
+    * Dibuja un sector medio y doble de pirámide de 3 bloques de lado y 2 de alto
+    * Deja el cabezal una celda lindante al Norte de la celda actual
+    PRECONDICIONES:
+    * La celda actual debe estar vacía
+    * Debe haber 2 celdas vacías al Este y 1 celda vacía al Norte de la celda actual
+*/
+procedure DibujarMedioDoble() {
+    DibujarMedio()
+    Mover(Norte)
+    DibujarMedio()
+}
+
+/* ​ 
+PROPÓSITO: Dibuja una punta de pirámide
+PRECONDICIONES:
+    * La celda actual debe estar vacía
+*/
+procedure DibujarPunta() {
+    Poner(Negro)
+}
+
+/*
+ PROPÓSITO: 
+    * Dibuja la punta doble  de la pirámide de 1 bloque de alto por 1 de largo
+    * Deja el cabezal una celda lindante al Norte de la celda actual
+    PRECONDICIONES:
+    * La celda actual  debe estar vacía
+    * Debe haber 1 celda vacía al Norte de la celda actual
+*/
+procedure DibujarPuntaDoble() {
+    DibujarPunta()
+    Mover(Norte)
+    DibujarPunta()
+}
+
+/*
+    PROPÓSITO: Ubica el cabezal para comenzar a dibujar el siguiente segmento al Norte 
+    PRECONDICIÓN:
+        * Hay al menos una celda al Norte y una celda al Este de la actual
+*/
+procedure PosicionarseParaSiguienteSegmentoAlNorte() {
+    Mover(Norte)
+    Mover(Este)
+}
+
+/*
+    PROPÓSITO: Ubica el cabezal para comenzar a dibujar el siguiente segmento al Sur
+    PRECONDICIÓN:
+        * Hay al menos una celda al Sur y una celda al Este de la actual
+*/
+procedure PosicionarseParaSiguienteSegmentoAlSur() {
+    Mover(Sur)
+    Mover(Este)
+}
+
+/*
+    PROÓSITO: Regresa, desde la punta, al inicio de la pirámide 
+    PRECONDICIÓN:
+        * Hay al menos 2 celdas el Sur y dos celdas al Oeste
+*/
+procedure RegresarAlOrigenDesdeLaPunta() {
+    repeat (2) { Mover(Sur) Mover(Oeste) }
+}
+

@@ -1,0 +1,40 @@
+program {
+    ConstruirEscaleraAzulDe4Escalones()
+}
+
+/*
+    PROPÓSITO: 
+        * Construye una escalera azul de 4 escalones
+        * El cabezal queda ubicado en el último escalón
+    PRECONDICIÓN:
+        * Hay al menos 4 celdas vacías al Este de la actual
+        * Hay al menos 3 celdas vacías al Norte de la actual
+        * La celda actual está vacía
+*/
+procedure ConstruirEscaleraAzulDe4Escalones() {
+    repeat (2) {
+        ConstruirEscalón()
+        PosicionarseParaSiguienteEscalón()
+    }
+    ConstruirEscalón()
+}
+
+/*
+    PROPÓSITO: Construye un escalón azul de dos ladrillos
+    PRECONDICIÓN: 
+        * Hay al menos una celda vacía al Este
+        * La celda actual está vacía
+    OBSERVACIÓN: un ladrillo se representa con una bolita azul
+*/
+procedure ConstruirEscalón() {
+    Poner(Azul) Mover(Este) Poner(Azul)
+}
+
+/*
+    PROPÓSITO: Se ubica para construir el siguiente escalón
+    PRECONDICIÓN:
+        * Hay una celda vacía al Norte
+*/
+procedure PosicionarseParaSiguienteEscalón() {
+    Mover(Norte)    
+}
