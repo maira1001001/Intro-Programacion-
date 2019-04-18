@@ -1,9 +1,3 @@
-/*
-DISCUCIONES:
-1. hasta donde regresa el cabezal para "DibujarBase", "DibujarMedio", "DibujarPunta
-2. Conviene dejar el cabezal en la punta de la pirámide o en el extremo inicial de la base ?
-3. DibujarPirámideGigante queda muy feo para modularizar. Que hacemos con ese?
-*/
 program {
     DibujarPirámide()
     DibujarPirámideInvertida()
