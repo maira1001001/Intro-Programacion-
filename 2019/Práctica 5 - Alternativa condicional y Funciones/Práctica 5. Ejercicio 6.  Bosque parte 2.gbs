@@ -5,26 +5,12 @@ program {
 
 procedure Polinizar() {
 /*
-    PROPÓSITO: Los árboles de la parcela actual polinizan la parcela lindante al Este.
+    PROPÓSITO: Los árboles de la parcela actual polinizan la parcela lindante al Este, si puede
     PRECONDICIÓN: ninguna.
     OBSERVACIÓN: la polinización genera tantas semillas en esa celda como árboles haya en la celda actual, menos 3
 */
     if (puedePolinizar()) {
-        Poner_SemillasAl_SiPuede(nroÁrboles()-3, Este)
-    }
-}
-
-procedure Poner_SemillasAl_SiPuede(cantidadAPoner, dirección) {
-    /*
-        PROPÓSITO:  Pone una cantidad dada de semillas en la parcela ubicada en 
-                    la dirección dada si se cumple con la condición dada.
-        PRECONDICIÓN: Ninguna.
-        PARÁMETROS: 
-            * cantidadAPoner: un número que representa la cantidad de semillas a poner
-            * dirección: una dirección que indica la dirección de la parcela donde se pondrán semillas
-    */
-    if (hayParcelaAl_(dirección)) {
-        Poner_SemillasAl_(cantidadAPoner, dirección)
+        Poner_SemillasAl_(nroÁrboles()-3, Este)
     }
 }
 
