@@ -59,7 +59,7 @@ procedure Eliminar_ÁrbolesAl_SiPuede(cantidadAEliminar, direcciónAMover) {
             * "cantidadAEliminar": un número que representa la cantidad de árboles a eliminar
             * "direcciónAMover": una dirección que indica hacia donde se eliminarán árboles
     */
-    if (hayParcelaAl_(Norte)) {
+    if (hayParcelaAl_(direcciónAMover)) {
         Eliminar_ÁrbolesSiHay(3)
     }
 }
