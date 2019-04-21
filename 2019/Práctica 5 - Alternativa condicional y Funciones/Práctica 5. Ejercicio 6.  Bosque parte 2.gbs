@@ -1,0 +1,299 @@
+program {
+    Poner_Semillas(5)
+    Sacar_Semillas(4)
+}
+
+procedure Polinizar() {
+/*
+    PROPÓSITO: Los árboles de la parcela actual polinizan la parcela lindante al Este.
+    PRECONDICIÓN: ninguna.
+    OBSERVACIÓN: la polinización genera tantas semillas en esa celda como árboles haya en la celda actual, menos 3
+*/
+    if (puedePolinizar()) {
+        Poner_SemillasAl_SiPuede(nroÁrboles()-3, Este)
+    }
+}
+
+procedure Poner_SemillasAl_SiPuede(cantidadAPoner, dirección) {
+    /*
+        PROPÓSITO:  Pone una cantidad dada de semillas en la parcela ubicada en 
+                    la dirección dada si se cumple con la condición dada.
+        PRECONDICIÓN: Ninguna.
+        PARÁMETROS: 
+            * cantidadAPoner: un número que representa la cantidad de semillas a poner
+            * dirección: una dirección que indica la dirección de la parcela donde se pondrán semillas
+    */
+    if (hayParcelaAl_(dirección)) {
+        Poner_SemillasAl_(cantidadAPoner, dirección)
+    }
+}
+
+function puedePolinizar() {
+    /*
+        PROPÓSITO: Indica si se puede polinizar en la parcela actual.
+        PRECONDICIÓN:  Ninguna.
+        RESULTADO: un valor de verdad.
+        OBSERVACIÓN: la polinización ocurre cuando 
+            * hay una parcela lindante al Este y
+            * hay 3 o más árboles en la parcela actual
+    */
+    return (hayParcelaAl_(Este) && nroÁrboles()>=3)
+}
+
+procedure ExplotarBomba() {
+/*
+    PROPÓSITO:  Explota una bomba, consumiendo a lo sumo 5 árboles 
+                de la parcela actual y a lo sumo 3 árboles lindante al Norte 
+                si puede moverse
+    PRECONDICIÓN: hay una bomba en la parcela actual.
+*/
+    Eliminar_ÁrbolesSiHay(5)
+    Eliminar_ÁrbolesAl_SiPuede(3, Norte)
+    SacarBomba()
+}
+
+procedure Eliminar_ÁrbolesSiHay(cantidadAEliminar) { //otro nombre: "Sacar_ÁrbolesSiHay(cantidad)"
+/*
+    PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela actual
+    PRECONDICIÓN: ninguna.
+    PARÁMETROS: "cantidadAEliminar" es un número que representa la cantidad de árboles a eliminar
+*/
+    if (nroÁrboles() >= cantidadAEliminar) {
+        Sacar_Árboles(cantidadAEliminar)
+    } else {
+        Sacar_Árboles(nroÁrboles())
+    }
+}
+
+procedure Eliminar_ÁrbolesAl_SiPuede(cantidadAEliminar, direcciónAMover) {
+    /*
+        PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela ubicada en la dirección dada
+        PRECONDICIÓN: Ninguna.
+        PARÁMETROS: 
+            * "cantidadAEliminar": un número que representa la cantidad de árboles a eliminar
+            * "direcciónAMover": una dirección que indica hacia donde se eliminarán árboles
+    */
+    if (hayParcelaAl_(Norte)) {
+        Eliminar_ÁrbolesSiHay(3)
+    }
+}
+
+procedure GerminarSemilla() {
+    /*
+        PROPÓSITO: Germila una semilla de la parcela actual. 
+        PRECONDICIÓN: ninguna.
+        OBSERVACIÓN: la germinación de una semilla es la transformación la semilla en un árbol
+    */
+    if (puedeGerminarSemilla()) {
+        Sacar_Nutrientes(3)
+        Sacar_Semillas(1)
+        Poner_Árboles(1)
+    }
+}
+
+procedure AlimentarÁrboles() {
+/*
+    PROPÓSITO: Alimenta a los árboles de la parcela actual consumiendo un nutriente cada uno
+    PRECONDICIÓN: Ninguna.
+*/
+    if (nroNutrientes()>nroÁrboles()) {
+        Sacar_Nutrientes(nroÁrboles())
+    } else {
+        Sacar_Nutrientes(nroNutrientes())
+    }
+}
+
+function hayParcelaAl_(dirección) {
+    /*
+        PROPÓSITO: Indica si hay una parcela en la dirección dada
+        PRECONDICIÓN: Ninguna.
+        PARÁMETRO: "dirección" es una dirección
+        RESULTADO: un valor de verdad.
+    */
+    return (puedeMover(dirección))
+}
+
+function puedeGerminarSemilla() {
+/*
+    PROPÓSITO: Indica si en la parcela actual se puede germinar una semilla.
+    PRECONDICIÓN: ninguna.
+    RESULTADO: un valor de verdad. Verdadero si hay al menos 3 nutrientes y al menos 1 semillas.
+*/
+    return (nroNutrientes()>=3 && nroSemillas()>=1)
+}
+
+function nroNutrientes() {
+/*
+    PROPÓSITO: Indica la cantidad de nutrientes en la parcela actual
+    RESULTADO: un número
+*/
+    return (nroBolitas(nutriente()))
+}
+
+function nroSemillas() {
+/*
+    PROPÓSITO: Indica la cantidad de semillas en la parcela actual
+    RESULTADO: un número
+*/
+    return (nroBolitas(semilla()))
+}
+
+function nroÁrboles() {
+/*
+    PROPÓSITO: Indica la cantidad de árboles en la parcela actual
+    RESULTADO: un número
+*/
+    return (nroBolitas(árboles()))
+}
+
+
+////////////////////////////////////////
+/// REPRESENTACIÓN DE LA INFORMACIÓN  //
+////////////////////////////////////////
+
+function semilla() {
+/*
+    PROPÓSITO: describe una semilla del bosque. Una semilla se representa con un color Rojo
+*/
+    return (Rojo)
+}
+
+function bomba() {
+/*
+    PROPÓSITO: describe una bomba del bosque. Una bomba se representa con un color Negra
+*/
+    return (Negro)
+}
+
+function nutriente() {
+/*
+    PROPÓSITO: describe un nutriente del bosque. Un nutriente se representa con un color Azul
+*/
+    return (Azul)
+}
+
+function árbol() {
+/*
+    PROPÓSITO: describe una árbol del bosque. Una árbol se representa con un color Verde
+*/
+    return (Verde)
+}
+
+
+///////////////////////////
+// EJERCICIOS PRÁCTICA 4 //
+///////////////////////////
+
+procedure Poner_Semillas(cantidadDeSemillasAPoner){
+    /*
+        PROPÓSITO: Pone la cantidad de semillas indicadas por "cantidadDeSemillasAPoner"
+        PRECONDICIÓN:Ninguna (es una operación total)
+        PARÁMETROS: cantidadDeSemillasAPoner es un número que representa la cantidad de semillas a poner
+        OBVSERVACIÓN: una semilla se representa con una bolita Verde
+    */    
+    Poner__Veces(semilla(), cantidadDeSemillasAPoner)
+}
+
+procedure Sacar_Semillas(cantidadDeSemillasASacar) {
+    /*
+        PROPÓSITO: Saca la cantidad de semillas indicada en "cantidadDeSemillasASacar"
+        PRECONDICIÓN: Hay al menos la cantidad indicada por "cantidadDeSemillasASacar" de semillas 
+        PARÁMETROS: cantidadDeSemillasASacar es un número que representa la cantidad de semillas a sacar
+        OBVSERVACIÓN: una semilla se representa con una bolita Verde
+    */    
+    Sacar__Veces(semilla(), cantidadDeSemillasASacar)
+}
+
+procedure Poner_Árboles(cantidadDeÁrbolesAPoner) {
+    /*
+        PROPÓSITO: Pone la cantidad de árboles indicado en "cantidadDeÁrbolesAPoner"
+        PRECONDICIÓN: cantidadDeÁrbolesAPoner > 0
+        PARÁMETROS: "cantidadDeÁrbolesAPoner" es un número que representa la cantidad de árboles a poner
+    */
+    Poner__Veces(árbol(), cantidadDeÁrbolesAPoner)
+}
+
+procedure Sacar_Árboles(cantidadDeÁrbolesASacar) {
+    /*
+        PROPÓSITO: Saca la cantidad de árboles indicado en "cantidadDeÁrbolesASacar"
+        PRECONDICIÓN: cantidadDeÁrbolesASacar > 0
+        PARÁMETROS: "cantidadDeÁrbolesASacar" es un número que representa la cantidad de árboles a sacar
+    */
+    Poner__Veces(árbol(), cantidadDeÁrbolesAPoner)
+}
+
+procedure PonerBomba() {
+    /*
+        PROPÓSITO: Pone una bomba en la celda actual
+        PRECONDICIÓN: ninguna (operación total)
+        OBSERVACIÓN: una bomba se representa con una bolita de color Negro
+    */
+    Poner(bomba())
+}
+
+procedure SacarBomba() {
+    /*
+        PROPÓSITO: Saca una bomba de la celda actual
+        PRECONDICIÓN: Hay una bomba en la celda actual
+        OBSERVACIÓN: una bomba se representa con una bolita de color Negro
+    */
+    Sacar(bomba())
+}
+
+procedure Poner_Nutrientes(cantidadDeNutrientesAPoner) {
+    /*
+        PROPÓSITO: Pone una cantidad de nutrientes indicado por "cantidadDeNutrientesAPoner" en la celda actual
+        PRECONDICIÓN: "cantidadDeNutrientesAPoner" > 0
+        PARÁMETRO: "cantidadDeNutrientesAPoner" es un número
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */
+    Poner__Veces(nutriente(), cantidadDeNutrientesAPoner)
+}
+procedure Sacar_Nutrientes(cantidadDeNutrientesASacar) {
+    /*
+        PROPÓSITO: Saca la cantidad de nutrientes indicado por "cantidadDeNutrientesASacar" de la celda actual
+        PRECONDICIÓN: Hay al menos la cantidad de nutrientes a sacar indicado por "cantidadDeNutrientesASacar"
+        PARÁMETRO: "cantidadDeNutrientesASacar" es un número que representa la cantidad de nutrientes a sacar
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */
+    Sacar__Veces(nutriente(), cantidadDeNutrientesASacar)
+}
+procedure Poner_SemillasAl_(cantidad, dirección) {
+    /*
+        PROPÓSITO: Pone semillas una cantidad dada hacia la dirección dada
+        PRECONDICIÓN: Hay una celda lindante en la dirección dada y "cantidad" > 0
+        PARÁMETRO: 
+            * cantidad: un número que representa la cantidad de semillas a poner
+            * dirección: una dirección que indica donde poner las semillas
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */
+    Mover(dirección)
+    Poner_Semillas(cantidad)
+    Mover(opuesto(dirección))
+}
+
+procedure Sacar_ÁrbolesAl_(cantidad, dirección) {
+    /*
+        PROPÓSITO: Saca una cantidad dada de árboles en la dirección dada
+        PRECONDICIÓN: Hay una celda lindante en la dirección dada y "cantidad" > 0
+        PARÁMETRO: 
+            * cantidad: un número que representa la cantidad de semillas a sacar
+            * dirección: una dirección que indica donde sacar las semillas
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */    
+    Mover(dirección)
+    Sacar_Semillas(cantidad)
+    Mover(opuesto(dirección))
+}
+
+
+////////////////////////////////
+/// REUTILIZACIÓN DE CÓDIGO ///
+//////////////////////////////
+procedure Poner__Veces(color, cantidad) {
+    repeat(cantidad) { Poner(color) }
+}
+
+procedure Sacar__Veces(color, cantidad) {
+    repeat(cantidad) { Sacar(color) }
+}
