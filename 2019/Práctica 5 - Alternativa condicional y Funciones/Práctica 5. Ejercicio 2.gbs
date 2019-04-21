@@ -1,0 +1,86 @@
+/*2. Definir funciones totales que sean verdaderas
+a. Cuando la celda actual tiene más de 5 bolitas en total.
+b. Cuando la celda actual tiene al menos 5 bolitas en total.
+c. Cuando la celda actual tiene al menos 5 bolitas en total y el borde se
+encuentra justo al Este de la misma.
+d. Cuando la celda actual tiene una celda lindante al Norte oal Este.
+e. Cuando la celda actual tiene bolitas de todos los colores.
+f. Cuando en la celda actual faltan bolitas de al menos un color (dar una
+solución sin usar la función del ı́tem anterior y otra usándola).
+*/
+
+program {
+    return (faltanBolitasDeAlMenos1ColorA())    
+}
+
+function hayMásDe5Bolitas() { //hayALoSumo6Bolitas
+/*
+    PROPÓSITO: 
+    * Describe verdadero cuando la celda actual tiene más de 5 bolitas
+    * Indica si hay más de 5 bolitas en la celda actual
+    PRECONDICIÓN: ninguna. Es una función total.
+*/
+    return (nroBolitas(Azul)+nroBolitas(Negro)+nroBolitas(Rojo)+nroBolitas(Verde)>5)
+}
+
+function hayAlMenos5Bolitas() {
+/*
+    PROPÓSITO: 
+    * Describe verdadero cuando hay al menos 5 bolitas en la celda actual
+    * Indica si hay 5 o menos bolitas en la celda actual
+    PRECONDICIÓN: ninguna. Es una función total.
+*/
+    return (not hayMásDe5Bolitas())
+}
+
+function esBordeEsteYHayAlMenos5Bolitas() {
+/*
+    PROPÓSITO: 
+        * Describe verdadero si el cabezal está en el borde Este y hay al menos 5 bolitas en la celda actual
+        * Indica si el cabezal está en el borde Este y hay al menos 5 bolitas en la celda actual
+    PRECONDICIÓN: ninguna. Es una función total.
+*/
+    return (hayAlMenos5Bolitas() && not puedeMover(Este))
+}
+
+function puedeMoverAlNorteOAlEste() {
+    /*
+        PROPÓSITO: Indica si puede el cabezal al Norte o al Este
+        PRECONDICIÓN: ninguna. es una operación total.
+        RESULTADO: es un valor de verdad. Verdadero si puede mover al norte o al este. Falso, si no.
+    */
+    return (puedeMover(Norte) || puedeMover(Este))
+}
+
+function hayBolitasDeTodosLosColores() {
+    /*
+        PROPÓSITO: 
+        * Indica si hay al menos una bolita de color Azul, Negro, Rojo y Verde
+        * Indica si hay bolitas de todos los colores
+        PRECONDICIÓN: ninguna. Es una operación total.
+        RESULTADO: es un valor de verdad.
+    */
+    return (hayBolitas(Azul) && hayBolitas(Rojo) && hayBolitas(Negro) && hayBolitas(Verde))
+}
+
+function faltanBolitasDeAlMenos1ColorA(){
+    /*
+        PROPÓSITO: 
+        * Indica si en la celda actual faltan bolitas de al menos un color
+        PRECONDICIÓN: ninguna. Es una operación total.
+        RESULTADO: es un valor de verdad. 
+            * Verdadero: si faltan bolitas de al menos un color.
+    */
+    return (not hayBolitasDeTodosLosColores())
+}
+
+function faltanBolitasDeAlMenos1ColorB(){
+    /*
+        PROPÓSITO: 
+        * Indica si hay al menos una bolita de color Azul, Negro, Rojo y Verde
+        * Indica si hay bolitas de todos los colores
+        PRECONDICIÓN: ninguna. Es una operación total.
+        RESULTADO: es un valor de verdad.
+    */
+            return (not hayBolitas(Azul) || not hayBolitas(Rojo) || not hayBolitas(Negro) || not hayBolitas(Verde))
+}

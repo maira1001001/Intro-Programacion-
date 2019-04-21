@@ -1,0 +1,52 @@
+program {
+    
+}
+
+procedure SacarUnaFicha_SiSePuede(colorDeLaFicha) {
+    /*
+        PROPÓSITO: Saca una ficha del color dado por "colorDeLaFicha" en la celda actual
+        PRECONDICIÓN: ninguna. Es una operación total.
+        PARÁMETROS:  "colorDeLaFicha" es un color que representa el color de la ficha a sacar
+    */
+    if (hayFichasDeColor_(colorDeLaFicha)) {
+        Sacar(colorDeLaFicha)
+    }
+}
+
+function hayFichasDeColor_(colorDeLaFicha) {
+    /*
+        PROPÓSITO: Indica si hay alguna ficha del color dado por "colorDeLaFicha"
+        PRECONDICIÓN: ninguna.
+        PARÁMETRO: "colorDeLaFicha" es un color que representa el color de la ficha
+        RESULTADO: un valor de verdad
+    */
+    return (hayBolitas(colorDeLaFicha))
+}
+
+procedure DesempatarParaElLocal__(colorDelLocal,colorDelVisitante) {
+    /*
+        PROPÓSITO: Desempata el partido si hay un empate del equipo local y el visitante.
+        PRECONDICIÓN: "colorDelLocal" y "colorDelVisitante" son de distinto color.
+        PARÁMETROS: 
+            *colorDelLocal: un color que representa el color del equipo local
+            *colorDelVisitante: un color que representa el color del equipo visitante
+        OBSERVACIÓN: 
+        * El equipo local se representa con bolitas de color "colorDelLocal" 
+        * El equipo visitante se representa con bolitas de color "colorDelVisitante"
+        * Un empate se define cuando la cantidad de bolitas del equipo visitante es igual al del equipo local
+    */
+    if (cantidadDeGoles(colorDelLocal)==cantidadDeGoles(colorDelVisitante)) {
+        Poner(colorDelLocal)//AnotarGolPara(colorDelLocal)
+    }
+}
+
+function cantidadDeGoles(colorEquipo){
+    /*
+        PROPÓSITO: Describe la cantidad de goles para el equipo dado por "colorEquipo"
+        PRECONDICIÓN: ninguna.
+        PARÁMETRO: "colorEquipo" un color que representa el color del equipo de futbol
+        RESULTADO: un valor numérico
+    */
+    return (nroBolitas(colorEquipo))
+}
+

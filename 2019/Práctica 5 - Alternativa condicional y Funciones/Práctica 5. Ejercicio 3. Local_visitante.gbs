@@ -1,0 +1,28 @@
+program {
+    
+}
+
+procedure SacarUnaFicha_SiSePuede(colorDeLaFicha) {
+    /*
+        PROPÓSITO: Saca una ficha del color dado por "colorDeLaFicha" en la celda actual
+        PRECONDICIÓN: ninguna. Es una operación total.
+        PARÁMETROS:  "colorDeLaFicha" es un color que representa el color de la ficha a sacar
+    */
+    if (hayBolitas(colorDeLaFicha)) {
+        Sacar(colorDeLaFicha)
+    }
+}
+
+procedure DesempatarParaElLocal__(colorDelLocal,colorDelVisitante) {
+    /*
+        PROPÓSITO: Desempata el partido si hay un empate del equipo local y el visitante.
+        PRECONDICIÓN: "colorDelLocal" y "colorDelVisitante" son de distinto color.
+        PARÁMETROS: 
+            *colorDelLocal: un color que representa el color del equipo local
+            *colorDelVisitante: un color que representa el color del equipo visitante
+        OBSERVACIÓN: 
+        * El equipo local se representa con bolitas de color "colorDelLocal" 
+        * El equipo visitante se representa con bolitas de color "colorDelVisitante"
+        * Un empate se define cuando la cantidad de bolitas del equipo visitante es igual al del equipo local
+    */
+}

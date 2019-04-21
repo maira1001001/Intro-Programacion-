@@ -1,0 +1,38 @@
+program {
+    
+}
+
+procedure PudrirManzana() {
+    /*
+        PROPÓSITIO: Pudre una manzana retirando el gusano cuando hay una manzana en buen estado y un gusado.
+        PRECONDICIÓN: ninguna.
+    */
+    if (hayManzanaEnBuenEstado() && hayGusano()) {
+        Reemplazar_Y_Por_(Rojo, Verde, Negro)
+    }
+}
+
+procedure Reemplazar_Y_Por_(primerColorAReemplazar, segundoColorAReemplazar, colorAAgregar) {
+    /*
+        PROPÓSITO: Reemplaza los colores dados por "primerColorAReemplazar" y "segundoColorAReemplazar" por "colorAAgregar"
+        PRECONDICIÓN: Hay al menos un color indicado por "primerColorAReemplazar"y otro color indicado por "segundoColorAReemplazar"
+        PARÁMETROS: 
+        * "primerColorAReemplazar" es un color que indica el primero color a reemplazar. 
+        * "segundoColorAReemplazar" es un  color que representa el segundo color a reemplazar
+    */
+    Sacar(primerColorAReemplazar)
+    Sacar(segundoColorAReemplazar)
+    Poner(colorAAgregar)
+}
+
+procedure PudrirHasta_Manzanas(cantidadAPudrir) {
+    /*
+        PROPÓSITO: Pudre, de haber manzanas y guzanos, las manzanas  una cantidad indicada por "cantidadAPudrir"
+        PRECONDICION: ninguna.
+        PARÁMETROS: "cantidadAPrudrir" es un número que representa la cantidad de manzanas a pudrir
+    */
+    repeat (cantidadAPudrir) {
+        PudrirManzana()        
+    }
+}
+

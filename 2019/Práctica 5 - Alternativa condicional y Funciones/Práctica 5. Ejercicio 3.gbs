@@ -1,0 +1,122 @@
+program {
+    
+}
+
+procedure Poner_Si_(color, condición) {
+    /*
+        PROPÓSITO: Poner una bolita del color indicado si se cumple la condición dada
+        PRECONDICIÓN: ninguna.
+        PARÁMETROS: 
+            * color: es un color que representa el color de la bolita a poner
+            * condición: es un valor de verdad 
+    */
+    if (condición) {
+        Poner(color)
+    }
+}
+
+procedure Sacar_Si_(color, condición) {
+    /*
+        PROPÓSITO: Saca una bolita del color indicado si se cumple la condición dada
+        PRECONDICIÓN: ninguna.
+        PARÁMETROS: 
+            * color: es un color que representa el color de la bolita a sacar
+            * condición: es un valor de verdad 
+    */
+    if (condición) {
+        Poner(color)
+    }
+}
+
+procedure Mover_Si_(dirección, condición) {
+    /*
+        PROPÓSITO: Mueve el cabezal hacia la dirección indicada si se cumple la condición dada
+        PRECONDICIÓN: ninguna. (preguntar)
+        PARÁMETROS:
+            * dirección: es una dirección que indica la dirección hacia donde mover
+            * condición: es un valor de verdad
+    */
+    if (condición) {
+        Mover(dirección)
+    }
+}
+
+procedure DesempatarParaElLocal__(colorDelLocal,colorDelVisitante) {
+    /*
+        PROPÓSITO: Desempata en goles para el equipo local.
+        PRECONDICIÓN: ninguna.
+    */
+    Poner_Si(colorDelLocal, hayEmpate(colorDelLocal, colorDelVisitante))
+}
+
+function colorDelLocal() {
+    /*
+        PROPÓSITO: Describe el color del equipo local de futbol
+        PRECONDICIÓN: ninguna.
+        RESULTADO: un valor de verdad
+    */
+    return (Rojo)
+}
+
+
+function hayEmpate(colorDelLocal, colorDelVisitante) {
+    /*
+        PROPÓSITO: Indica si hay empate para el equipo local y visitante
+        PRECONDICIÓN: ninguna
+        RESULTADO: un valor de verdad.
+    */
+    return (nroBolitas(colorDelLocal)==nroBolitas(colorDelVisitante))
+}
+
+procedure ExpandirBacterias() {
+    /*
+        PROPÓSITO:  siempre que en la celda actual haya un cultivo de bacterias y haya suficientes nutrientes, agregue exactamente una bacteria más y consuma nutrientes, a razón de dos nutrientes por bacteria expandida 
+        PRECONDICIÓN: ninguna.
+        OBSERVACIÓN: 
+            * Las bacterias se representan con bolitas Verdes 
+            * Los nutrientes se representan con bolitas Rojas.
+
+    */
+    if (hayCultivoDeBacterias() && nroBacterias() >=2) {
+        AgregarBacterteria()
+        ConsumirNutrientes(2)
+    }
+}
+
+function hayCultivoDeBacterias() {
+    /*
+        PROPÓSITO: Indica si hay al menos un cultivo de bacterias en la celda actual
+        PRECONDICIÓN: ninguna
+        RESULTADO: un valor de verdad
+    */
+    return (nroBacterias()>0)
+}
+
+function nroBacterias() {
+    /*
+        PROPÓSITO: Describe la cantidad de bacterias presentes en la celda actual
+        PRECONDICIÓN: ninguna
+        RESULTADO: un número
+        OBSERVACIÓN: una bacterias se representa con una bolita de color Verde
+    */
+    return (nroBolitas(Verde))
+}
+
+procedure AgregarBacteria() {
+    /*
+        PROPÓSITO: Agrega una bacteria en la celda actual
+        PRECONDICIÓN: ninguna. Es una operación total.
+        OBSERVACIÓN: una bacteria se representa con una bolita de color verde
+    */
+    Poner(bacteria())
+}
+
+function bacteria() {
+    /*
+        PROPÓSITO: Describe una bacteria. Una bacteria se representa con bolita Verde
+        PRECONDICIÓN: ninguna. Es una opereración total.
+        RESULTADO: un color
+    *//
+    return (Verde)
+}
+
