@@ -28,7 +28,7 @@ function puedePolinizar() {
 
 procedure ExplotarBomba() {
 /*
-    PROPÓSITO:  Explota una bomba, consumiendo a lo sumo 5 árboles 
+    PROPÓSITO:  Explota una bomba, eliminando a lo sumo 5 árboles 
                 de la parcela actual y a lo sumo 3 árboles lindante al Norte 
                 si puede moverse
     PRECONDICIÓN: hay una bomba en la parcela actual.
@@ -38,7 +38,7 @@ procedure ExplotarBomba() {
     SacarBomba()
 }
 
-procedure Eliminar_ÁrbolesSiHay(cantidadAEliminar) { //otro nombre: "Sacar_ÁrbolesSiHay(cantidad)"
+procedure Eliminar_ÁrbolesSiHay(cantidadAEliminar) {
 /*
     PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela actual
     PRECONDICIÓN: ninguna.
@@ -60,7 +60,9 @@ procedure Eliminar_ÁrbolesAl_SiPuede(cantidadAEliminar, direcciónAMover) {
             * "direcciónAMover": una dirección que indica hacia donde se eliminarán árboles
     */
     if (hayParcelaAl_(direcciónAMover)) {
+        IrALaParcelaLindanteAl_(Norte)
         Eliminar_ÁrbolesSiHay(3)
+        IrALaParcelaLindanteAl_(Sur)
     }
 }
 
