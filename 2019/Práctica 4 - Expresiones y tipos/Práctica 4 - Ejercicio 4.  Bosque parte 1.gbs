@@ -1,0 +1,106 @@
+program {
+    Poner_Semillas(5)
+    Sacar_Semillas(4)
+}
+
+procedure Poner_Semillas(cantidadDeSemillasAPoner){
+    /*
+        PROPÓSITO: Pone la cantidad de semillas indicadas por "cantidadDeSemillasAPoner"
+        PRECONDICIÓN:Ninguna (es una operación total)
+        PARÁMETROS: cantidadDeSemillasAPoner es un número que representa la cantidad de semillas a poner
+        OBVSERVACIÓN: una semilla se representa con una bolita Verde
+    */    
+    Poner__Veces(Rojo, cantidadDeSemillasAPoner)
+}
+
+procedure Sacar_Semillas(cantidadDeSemillasASacar) {
+    /*
+        PROPÓSITO: Saca la cantidad de semillas indicada en "cantidadDeSemillasASacar"
+        PRECONDICIÓN: Hay al menos la cantidad indicada por "cantidadDeSemillasASacar" de semillas 
+        PARÁMETROS: cantidadDeSemillasASacar es un número que representa la cantidad de semillas a sacar
+        OBVSERVACIÓN: una semilla se representa con una bolita Verde
+    */    
+    Sacar__Veces(Rojo, cantidadDeSemillasASacar)
+}
+
+procedure Poner_Árboles(cantidadDeÁrbolesAPoner) {
+    /*
+        PROPÓSITO: Pone la cantidad de árboles indicado en "cantidadDeÁrbolesAPoner"
+        PRECONDICIÓN: cantidadDeÁrbolesAPoner > 0
+        PARÁMETROS: "cantidadDeÁrbolesAPoner" es un número que representa la cantidad de árboles a poner
+    */
+    Poner__Veces(Verde, cantidadDeÁrbolesAPoner)
+}
+
+procedure PonerBomba() {
+    /*
+        PROPÓSITO: Pone una bomba en la celda actual
+        PRECONDICIÓN: ninguna (operación total)
+        OBSERVACIÓN: una bomba se representa con una bolita de color Negro
+    */
+    Poner(Negro)
+}
+
+procedure SacarBomba() {
+    /*
+        PROPÓSITO: Saca una bomba de la celda actual
+        PRECONDICIÓN: Hay una bomba en la celda actual
+        OBSERVACIÓN: una bomba se representa con una bolita de color Negro
+    */
+    Sacar(Negro)
+}
+
+procedure Poner_Nutrientes(cantidadDeNutrientesAPoner) {
+    /*
+        PROPÓSITO: Pone una cantidad de nutrientes indicado por "cantidadDeNutrientesAPoner" en la celda actual
+        PRECONDICIÓN: "cantidadDeNutrientesAPoner" > 0
+        PARÁMETRO: "cantidadDeNutrientesAPoner" es un número
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */
+    Poner__Veces(Azul, cantidadDeNutrientesAPoner)
+}
+procedure Sacar_Nutrientes(cantidadDeNutrientesASacar) {
+    /*
+        PROPÓSITO: Saca la cantidad de nutrientes indicado por "cantidadDeNutrientesASacar" de la celda actual
+        PRECONDICIÓN: Hay al menos la cantidad de nutrientes a sacar indicado por "cantidadDeNutrientesASacar"
+        PARÁMETRO: "cantidadDeNutrientesASacar" es un número que representa la cantidad de nutrientes a sacar
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */
+    Sacar__Veces(Azul, cantidadDeNutrientesASacar)
+}
+procedure Poner_SemillasAl_(cantidad, dirección) {
+    /*
+        PROPÓSITO: Pone semillas una cantidad dada hacia la dirección dada
+        PRECONDICIÓN: Hay una celda lindante en la dirección dada y "cantidad" > 0
+        PARÁMETRO: 
+            * cantidad: un número que representa la cantidad de semillas a poner
+            * dirección: una dirección que indica donde poner las semillas
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */
+    Mover(dirección)
+    Poner_Semillas(cantidad)
+    Mover(opuesto(dirección))
+}
+
+procedure Sacar_ÁrbolesAl_(cantidad, dirección) {
+    /*
+        PROPÓSITO: Saca una cantidad dada de árboles en la dirección dada
+        PRECONDICIÓN: Hay una celda lindante en la dirección dada y "cantidad" > 0
+        PARÁMETRO: 
+            * cantidad: un número que representa la cantidad de semillas a sacar
+            * dirección: una dirección que indica donde sacar las semillas
+        OBSERVACIÓN: una unidad de nutriente se representa con una bolita de color Azul
+    */    
+    Mover(dirección)
+    Sacar_Semillas(cantidad)
+    Mover(opuesto(dirección))
+}
+
+
+procedure Poner__Veces(color, cantidad) {
+    repeat(cantidad) { Poner(color) }
+}
+
+procedure Sacar__Veces(color, cantidad) {
+    repeat(cantidad) { Sacar(color) }
+}

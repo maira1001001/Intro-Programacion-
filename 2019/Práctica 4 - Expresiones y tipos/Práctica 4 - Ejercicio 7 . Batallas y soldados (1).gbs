@@ -1,0 +1,53 @@
+program {
+    //EnviarSoldadosParaDuplicarEnemigos()
+    PelearLaBatalla()
+}
+
+procedure EnviarSoldadosParaDuplicarEnemigos() {
+    /*
+        PROPÓSITO: Agrega soldados aliados en la celda actual 
+            en cantidad suficiente para que haya el doble de
+            aliados que de soldados enemigos.
+        PRECONDICIÓN: 
+            Ninguna (en caso que no haya enemigos, no se envian aliados).
+            ¡¡¡Tampoco se envían soldados aliados en caso que estos ya dupliquen a los enemigos!!!!
+        OBSERVACIÓN: 
+        * un soldados aliado se representa con una bolita color Negro
+        * un soldados enemigo se representa con una bolita color Rojo
+    */
+    repeat (2*nroBolitas(Rojo)-nroBolitas(Negro)) { //proximamente: funciones para mayor expresividad
+        EnviarSoldadoAliado()
+    }
+}
+
+procedure EnviarSoldadoAliado() {
+    /*
+        PROPÓSITO: Envia un solado aliado
+        PRECONDICIÓN: Ninguna (es una operación total)
+        OBSERVACIÓN: un soldados aliado se representa con una bolita de color Negro
+    */
+    Poner(Negro)
+}
+
+procedure PelearLaBatalla() {
+    /*
+        PROPÓSITO: Simula una batalla de aliados y enemigos
+        PRECONDICIÓN: Hay al menos tres medios (1.5 o 3/2) más de soldados aliados que de enemigos
+    */
+    Retirar_SoldadosEnemigosY_SoldadosAliados(nroBolitas(Rojo), (nroBolitas(Rojo) div 2 * 3))
+}
+
+procedure Retirar_SoldadosEnemigosY_SoldadosAliados(cantidadEnemigos, cantidadAliados) {
+    /*
+        PROPÓSITO: Retira del campo de batalla la cantidad de soldados enemigos indicados por "cantidadEnemigos" y la cantidad de soldados aliados indicado por "cantidadAliados"
+        PRECONDICIÓN: Hay "cantidadEnemigos" de soldados enemigos en la celda actual y hay exactamente "cantidadAliados"  de soldados aliadps en la celda actual
+        PARÁMETROS: ambos son un número que representan la cantidad de soldados a retirar
+        OBSERVACIÓN: Los soldados enemigos se representan con una bolita color Rojo y los soldados aliados con una bolita de color Negro
+    */
+    Sacar__Veces(Rojo, cantidadEnemigos)
+    Sacar__Veces(Negro, cantidadAliados)
+}
+
+procedure Sacar__Veces(color, cantidad) {
+    repeat(cantidad) { Sacar(color) }
+}

@@ -1,0 +1,71 @@
+program {
+    DibujarBanda_EnDiagonalNEDe_x_(Negro, 3, 5)
+}
+
+
+procedure DibujarBanda_EnDiagonalNEDe_x_(color, alto, largo) {
+    /*
+        PROPÓSITO: dibuja una banda en diagonal Noreste, de color "color", y del alto y largo indicado por parámetro
+        PRECONDICIÓN: Hay al menos "largo"-1 celdas al Este de la actual y "alto"+"largo"-2 celdas al Norte de la actual
+        PARÁMETROS:
+            * color: un color que representa el color de la banda
+            * alto: un número que representa el alto de la banda
+            * largo: un número que representa el largo de la banda
+    */
+    repeat(largo-1) {
+        DibujarLínea(color, alto, Norte)
+        PosicionarseParaSiguienteLínea()
+    }
+    DibujarLínea(color, alto, Norte)
+    VolverAlInicio(largo-1)
+}
+
+procedure DibujarLínea(colorLínea, longitudLínea, direcciónAMover) {
+    /*
+        PROPÓSITO: 
+            Dibuja una línea de color "colorLínea" y de longitud "longitudLínea" con dirección "direcciónAMover"
+            Dibuja una línea usando el color dado por "colorLínea" y  de longitud dada por "longitudLínea"
+        PRECONDICIÓN: 
+            Hay al menos "longitudLínea"-1 hacia la dirección indicada por "direcciónAMover" de la celda actual
+        PARÁMETROS:
+            * colorLínea: un color que representa el color de la línea a dibujar
+            * longitudLínea: un número que representa la longitud de la línea a dibujar
+    */    
+    repeat(longitudLínea-1) {
+        Poner(colorLínea)
+        Mover(direcciónAMover)        
+    }
+    Poner(colorLínea)
+    repeat(longitudLínea-1) { Mover(opuesto(direcciónAMover)) }
+}
+
+
+procedure PosicionarseParaSiguienteLínea() {
+    /*
+        PROPÓSITO: Posiciona el cabezal para dibujar  la siguiente línea de la diagonal
+        PRECONDICIÓN: Hay al menos una direccion al Norte y una dirección al Este
+    */    
+    Mover(Norte)
+    Mover(Este)
+}
+
+
+procedure VolverAlInicio(cantidadAMover){
+    /*
+        PROPÓSITO: Regresa al inicio de la diagonal, descendiendo en dirección Suroeste
+        PRECONDICIÓN: Hay al menos "cantidadAMover" en dirección Sur y en dirección Oeste desde la actual
+        PARÁMETROS: "cantidadAMover" es un número que indica la cantidad de celdas a descender
+    */  
+    repeat(cantidadAMover) {
+        Mover(Oeste)
+        Mover(Sur)
+    }
+}
+
+procedure Nombre2() {
+    /*
+        PROPÓSITO:
+        PRECONDICIÓN:
+        PARÁMETROS:
+    */    
+}
