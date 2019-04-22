@@ -38,7 +38,7 @@ procedure ExplotarBomba() {
     SacarBomba()
 }
 
-procedure Eliminar_ÁrbolesSiHay(cantidadAEliminar) {
+procedure Eliminar_ÁrbolesSiHayA(cantidadAEliminar) {
 /*
     PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela actual
     PRECONDICIÓN: ninguna.
@@ -51,6 +51,27 @@ procedure Eliminar_ÁrbolesSiHay(cantidadAEliminar) {
     }
 }
 
+procedure Eliminar_ÁrbolesSiHayB(cantidadAEliminar) {
+/*
+    PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela actual
+    PRECONDICIÓN: ninguna.
+    PARÁMETROS: "cantidadAEliminar" es un número que representa la cantidad de árboles a eliminar
+*/
+    repeat (cantidadAEliminar) {
+        EliminarArbolSiHay() //la mejor entre A y B. Es poco eficiente
+    }
+}
+
+procedure Eliminar_ÁrbolesSiHayC(cantidadAEliminar) {
+/*
+    PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela actual
+    PRECONDICIÓN: ninguna.
+    PARÁMETROS: "cantidadAEliminar" es un número que representa la cantidad de árboles a eliminar
+*/
+    Sacar_Árboles(min(cantidadAEliminar,nroÁrboles())) //la "mejor" entre A, B y C. Falta definir "min"
+}
+
+
 procedure Eliminar_ÁrbolesAl_SiPuede(cantidadAEliminar, direcciónAMover) {
     /*
         PROPÓSITO: Elimina a lo sumo una cantidad dada de árboles en la parcela ubicada en la dirección dada
@@ -60,9 +81,9 @@ procedure Eliminar_ÁrbolesAl_SiPuede(cantidadAEliminar, direcciónAMover) {
             * "direcciónAMover": una dirección que indica hacia donde se eliminarán árboles
     */
     if (hayParcelaAl_(direcciónAMover)) {
-        IrALaParcelaLindanteAl_(Norte)
-        Eliminar_ÁrbolesSiHay(3)
-        IrALaParcelaLindanteAl_(Sur)
+        IrALaParcelaLindanteAl_(direcciónAMover)
+        Eliminar_ÁrbolesSiHay(cantidadAEliminar)
+        IrALaParcelaLindanteAl_(opuesto(direcciónAMover))
     }
 }
 
