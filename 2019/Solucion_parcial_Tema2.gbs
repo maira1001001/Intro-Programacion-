@@ -1,0 +1,356 @@
+// ////////////////////////
+// Ejercicio 1
+// ////////////////////////
+function algúnPaloDeLaMano() {
+ /* PROPÓSITO: según el enunciado
+    PRECONDIÓN:
+     * el cabezal se encuentra sobre la mano de algún jugador
+     * hay al menos una carta en la celda actual
+    OBSERVACIÓN:
+     * se estructura como un recorrido de búsqueda sobre los palos
+ */
+ paloActual := minPalo()
+ while (not hayCartaDe_(paloActual)) {
+   paloActual := siguiente(paloActual)
+ }
+ return (paloActual)
+}
+
+// ////////////////////////
+// Ejercicio 2
+// ////////////////////////
+function salieronLasMenoresDelPalo_(palo) {
+ /* PROPÓSITO: según el enunciado
+    PRECONDICIÓN:
+     * hay una partida de Gobsconfío representada en el tablero
+    RESULTADO: un valor de verdad
+    OBSERVACIÓN: 
+     * la suma de todas las cartas de ese palo que salieron deber ser 10
+ */
+ return (sumaDeCartasDelPalo_QueSalieron(palo) == 10)
+}
+
+function sumaDeCartasDelPalo_QueSalieron(palo) {
+ /* PROPÓSITO: según el enunciado
+    PRECONDICIÓN:
+     * hay una partida de Gobsconfío representada en el tablero
+    PARÁMETROS:
+     * palo, un palo del que se desea la suma de cartas
+    RESULTADO: un número
+    OBSERVACIÓN:
+     * se estructura como un recorrido de acumulación sobre las celdas del tablero
+ */
+ IrAlInicioDeUnRecorrido__(Este, Norte)
+ sumaDeCartasDelPalo := númeroDeLaCartaActualDe_(palo)
+ while (not estoyElFinalDeUnRecorrido__(Este, Norte)) {
+   PasarASiguienteCelda__(Este, Norte)
+   sumaDeCartasDelPalo := sumaDeCartasDelPalo + númeroDeLaCartaActualDe_(palo)
+ }
+ return (sumaDeCartasDelPalo)
+}
+
+function númeroDeLaCartaActualDe_(palo) {
+ /* PROPÓSITO: 
+       cuando hay una carta del palo dado en la celda actual que no sea la 
+       carta que indica el palo de descarte, indica el número de esa carta. 
+       En otro caso, indica 0.
+    PRECONDICIÓN: ninguna
+    PARÁMETROS:
+     * palo, un palo que indica de que palo es la carta de la cual se desea el número
+    RESULTADO: un número
+ */
+ return (choose númeroCartaDe_(palo) when (hayUnaCartaQueSalióDe_(palo))
+                0                    otherwise)
+} 
+
+function hayUnaCartaQueSalióDe_(palo) {
+ /* PROPÓSITO: 
+     indica si la celda actual tiene una carta que sea del palo dado y la misma 
+     no es la carta que indica el palo de descarte
+    PRECONDICIÓN: ninguna
+    PARÁMETROS:
+      * palo, un palo que indica de que palo es la carta de la cual se desea saber si salió
+    RESULTADO: un número
+ */
+ return (hayCartaDe_(palo) && not esIndicadorDePaloDeDescarte())
+} 
+
+// ////////////////////////
+// Ejercicio 3
+// ////////////////////////
+function puntajeDelJugador() {
+ /* PROPÓSITO: según el enunciado 
+    PRECONDICIÓN:
+     * el cabezal se encuentra sobre la mano de un jugador
+    RESULTADO: un número
+ */
+ IrALaPilaDelJugador_(jugadorActual())
+ return (cantidadDePuntosEnLaPila())
+}
+
+function jugadorActual() {
+ /* PROPÓSITO: 
+       describe el jugador (es decir, la dirección) sobre cuya mano 
+       se encuentra parado el cabezal
+    PRECONDICIÓN: 
+     * el cabezal se encuentra parado sobre la mano de un jugador
+    RESULTADO: una dirección (o sea, un jugador)
+    OBSERVACIÓN:
+     * se estructura como un recorrido de búsqueda sobre direcciones
+  */
+  dirActual := minDir()
+  while (puedeMover(dirActual)) {
+    dirActual := siguiente(dirActual)
+  }
+  return (dirActual)
+}
+
+function cantidadDePuntosEnLaPila() {
+ /* PROPÓSITO: 
+       describe la cantidad de puntos que hay asociados a la pila actual. 
+       Devuelve cero si no hay puntos asociados a esa pila
+    PRECONDICIÓN: 
+     * el cabezal se encuentra sobre la pila de descarte de algún jugador 
+       (que no está en la esquina SurEste).
+    RESULTADO: un número
+ */
+ return (choose
+    nroDePuntosAl_(Sur)  when (puedeMover(Sur))
+    nroDePuntosAl_(Este) otherwise
+ )
+}
+
+function nroDePuntosAl_(dirección) {
+ /* PROPÓSITO: 
+       describe la cantidad de puntos que hay en la celda lindante de 
+       la celda actual, en la dirección dada
+    PRECONDICIÓN: 
+     * debe haber al menos una celda en la dirección dada desde la celda 
+       actual y el cabezal se debe encontrar sobre la pila de algún jugador
+     * la dirección es Sur o Este
+    PARÁMETRO:
+     * dirección, la dirección hacia la cual se desean leer los puntos
+    RESULTADO: un número
+ */    
+ Mover(dirección)
+ return (nroDePuntos())
+}
+
+// ////////////////////////
+// Ejercicio 4
+// ////////////////////////
+procedure AcreditarEl_Al_(puntaje, jugador) {
+ /* PROPÓSITO: según enunciado 
+    PRECONDICIÓN:
+     * puntaje es un número mayor o igual que 0
+     * hay un juego de Gobsconfío representado en el tablero
+    PARÁMETROS:
+     * puntaje, un número que indica el puntaje
+     * jugador, una dirección (o sea, un jugador)
+  */
+ IrALaPilaDelJugador_(jugador)
+ AcreditarEl_EnLaPilaActual(puntaje)
+}
+
+procedure AcreditarEl_EnLaPilaActual(puntaje) {
+ /* PROPÓSITO: 
+       acredita tantos puntos como los dados por el parámetro a la celda 
+       de puntos asociada a la pila actual
+    PRECONDICIÓN: 
+     * el cabezal se encuentra sobre la pila de algún jugador
+     * el puntaje debe ser mayor o igual a 0
+    PARÁMETROS:
+     * puntaje, un número que indica cuántos puntos se deben acreditar en la pila
+ */
+ if (puedeMover(Sur)) 
+       { AcreditarEl_Hacia_(puntaje, Sur)  } 
+  else { AcreditarEl_Hacia_(puntaje, Este) }
+}
+
+procedure AcreditarEl_Hacia_(puntaje, dirección) {
+ /* PROPÓSITO: 
+       acredita los puntos dados por el parámetro en la celda lindante en la dirección dada
+    PRECONDICIÓN: 
+     * hay una celda lindante en dirección dada y el cabezal se encuentra parado sobre una 
+       pila de descarte de un jugador (o sea, no es la celda SurEste)
+     * la dirección puede ser solo Sur o Este
+     * el puntaje debe ser mayor o igual a 0
+    PARÁMETROS:
+     * puntaje, un número que indica cuántos puntos se deben acreditar en la pila
+     * dirección, una dirección que indica hacia que lugar se encuentra la celda de puntos 
+                  asociada a la pila actual
+ */
+ Mover(dirección)
+ AcreditarEl_(puntaje)
+}
+
+procedure AcreditarEl_(puntaje) {
+ /* PROPÓSITO: 
+       acredita en la celda actual tantos puntos como los indicados por el parámetro
+    PRECONDICIÓN: 
+     * el cabezal se encuentra parado sobre la celda de puntos de una pila
+     * el puntaje debe ser mayor o igual a 0
+    PARÁMETROS:
+      * puntaje, un número que indica cuántos puntos se deben acreditar en la pila
+ */
+ repeat(puntaje) { AgregarUnPunto() }
+}
+
+// ////////////////////////
+// Ejercicio 5
+// ////////////////////////
+procedure IrAPrimerJugadorDeLaRonda() {
+ /* PROPÓSITO: según el enuncido 
+    PRECONDICIÓN:
+     * hay un juego de Gobsconfío representado
+  */
+ IrHastaLaCartaDelPaloDeDescarte()
+ IrHastaLaManoDe_(jugadorALaIzquierda())
+}
+
+procedure IrHastaLaCartaDelPaloDeDescarte() {
+ /* PROPÓSITO: 
+       posiciona el cabezal en la celda en la que se encuentra la 
+       carta con el palo del descarte
+    PRECONDICIÓN: 
+     * hay una representación válida de Gobsconfío en el tablero
+    OBSERVACIÓN:
+     * se estructura como un recorrido de búsqueda sobre las celdas del tablero
+ */
+ IrAlInicioDeUnRecorrido__(Este, Norte)
+ while (not esIndicadorDePaloDeDescarte()) {
+    PasarASiguienteCelda__(Este, Norte)
+ }
+}
+
+function jugadorALaIzquierda() {
+ /* PROPÓSITO: 
+       describe el jugador (dirección) el cual se encuentra a la izquierda de 
+       la celda actual
+    PRECONDICIÓN: 
+     * el cabezal no se encuentra ni en la fila ni en la columna central
+    RESULTADO: una dirección (o sea, un jugador)
+ */
+ return (choose
+   Este    when (estoyEnLaMitadEste()  && estoyEnLaMitadNorte())
+   Oeste   when (estoyEnLaMitadOeste() && estoyEnLaMitadSur())
+   Sur     when (estoyEnLaMitadEste()  && estoyEnLaMitadSur())
+   Norte   otherwise
+    )
+}
+
+function estoyEnLaMitadEste() {
+ /* PROPÓSITO: indica si el cabezal está parado más cerca del borde Este
+    PRECONDICIÓN: ninguna
+    RESULTADO: un valor de verdad
+ */
+ return (columnaActual() > nroDeColumnaDelMedio())
+}
+
+function estoyEnLaMitadOeste() {
+ /* PROPÓSITO: indica si el cabezal está parado más cerca del borde Oeste
+    PRECONDICIÓN: ninguna
+    RESULTADO: un valor de verdad
+ */
+ return (columnaActual() < nroDeColumnaDelMedio())
+}
+
+function estoyEnLaMitadNorte() {
+ /* PROPÓSITO: indica si el cabezal está parado más cerca del borde Norte
+    PRECONDICIÓN: ninguna
+    RESULTADO: un valor de verdad
+ */
+ return (filaActual() > nroDeFilaDelMedio())
+}
+
+function estoyEnLaMitadSur() {
+ /* PROPÓSITO: indica si el cabezal está parado más cerca del borde Sur
+    PRECONDICIÓN: ninguna
+    RESULTADO: un valor de verdad
+ */
+ return (filaActual() < nroDeFilaDelMedio())
+}
+
+procedure IrHastaLaManoDe_(jugador) {
+ /* PROPÓSITO: 
+       posiciona el cabezal sobre las cartas de la mano del jugador dado
+    PRECONDICIÓN: 
+     * hay una representación válida de Gobsconfío en el tablero
+    PARÁMETROS:
+     * jugador, un jugador (dirección) sobre cuya mano se desea posicionar el cabezal
+ */
+ IrAlBorde(jugador)
+ IrAlCentroEntre_(siguiente(jugador))
+}
+
+procedure IrAlCentroEntre_(dirección) {
+ /* PROPÓSITO: 
+       posiciona el cabezal en la celda central de fila o columna actual (fila
+       central de la columna, si se pasa como dirección Sur o Norte, columna 
+       central de la fila si se pasa Este u Oeste)
+    PRECONDICIÓN:
+     * debe haber una cantidad impar de filas y columnas
+    PARÁMETROS:
+     * dirección, una dirección que indica si pararse en el centro de una columna 
+                  o de una fila
+ */
+ IrAlBorde(dirección)
+ if (dirección == Este || dirección == Oeste)
+      { Mover__Veces(opuesto(dirección), nroDeFilaDelMedio())    }
+ else { Mover__Veces(opuesto(dirección), nroDeColumnaDelMedio()) }
+}
+
+function nroDeColumnaDelMedio() {
+ /* PROPÓSITO: describe el número de la columna central del tablero
+    PRECONDICIÓN: la cantidad de columnas es impar
+    RESULTADO: un número
+ */
+ return (cantidadDeColumnas() div 2)
+}
+
+function nroDeFilaDelMedio() {
+ /* PROPÓSITO: describe el número de la fila central del tablero
+    PRECONDICIÓN: la cantidad de filas es impar
+    RESULTADO: un número
+ */
+ return (cantidadDeFilas() div 2)
+}
+
+// ////////////////////////
+// Ejercicio 6
+// ////////////////////////
+procedure JugarRondaDeFormaDeshonesta(paloDeDescarte) {
+ /* PROPÓSITO: según el enunciado 
+    PRECONDICIÓN: 
+     * hay una representación válida de Gobsconfío en el tablero
+     * es la primera ronda
+    PARÁMETRO:
+     * paloDeDescarte, un palo con el que se debe comenzar la ronda
+    OBSERVACIÓN:
+     * se estructura como un recorido de modificación sobre los jugadores     
+ */
+ IrAPrimerJugadorDeLaRonda()
+ paloAJugar         := paloDeDescarte
+ jugadorAlQueLeToca := jugadorActual()
+ repeat(4) {                         // Una vez por cada jugador
+   DescartarCartaDe_(paloAJugar)
+   paloAJugar         := previo(paloAJugar)
+   jugadorAlQueLeToca := siguiente(jugadorAlQueLeToca)
+   IrHastaLaManoDe_(jugadorAlQueLeToca)
+ }
+}
+
+procedure DescartarCartaDe_(palo) {
+ /* PROPÓSITO: descarta una carta de la mano actual del palo dado
+    PRECONDICIÓN: 
+     * el cabezal se encuentra sobre la mano de un jugador
+     * la mano del jugador sobre la que se encuentra el cabezal tiene una 
+       carta del palo dado
+    PARÁMETROS:
+     * palo, el palo de la carta de la cual se quiere descartar el jugador
+ */
+ númeroDeCartaADescartar := númeroCartaDe_(palo)
+ SacarCartaDe_(palo)
+ Mover__Veces(opuesto(jugadorActual()), 2)
+ PonerCartaDe_(palo, númeroDeCartaADescartar)
+}
